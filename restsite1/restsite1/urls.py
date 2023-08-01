@@ -24,7 +24,8 @@ from rest_framework.routers import SimpleRouter
 from myapp.views import CarAPIViewSet, DriverAPIViewSet
 
 urlpatterns = [
-    path('i18n/', include('django.conf.urls.i18n'))
+    path('i18n/', include('django.conf.urls.i18n')),
+    path('tinymce/', include('tinymce.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

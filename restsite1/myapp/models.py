@@ -36,3 +36,6 @@ class Car(models.Model):
     updatedBy = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="cars_updated_by")
     car_number = models.CharField(max_length=50, default='00x000yy ab')
     time_create = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.id)
