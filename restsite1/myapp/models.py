@@ -26,9 +26,9 @@ class Car(models.Model):
         locals()[f"name_{iso}"] = models.CharField(max_length=255)
         locals()[f"color_{iso}"] = models.CharField(max_length=50)
         if iso == 'ru':
-            locals()[f"image_{iso}"] = models.ImageField(upload_to=f"images/{iso}/", blank=False, default=None)
+            locals()[f"image_{iso}"] = models.ImageField(upload_to=f"car_images/{iso}/")
         else:
-            locals()[f"image_{iso}"] = models.ImageField(upload_to=f"images/{iso}/", null=True, blank=True)
+            locals()[f"image_{iso}"] = models.ImageField(upload_to=f"car_images/{iso}/", null=True, blank=True)
     driver = models.ForeignKey(Driver, on_delete=models.CASCADE, related_name='cars')
     createdBy = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="cars_created_by")
     updatedBy = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="cars_updated_by")

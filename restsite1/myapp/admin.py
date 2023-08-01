@@ -44,17 +44,17 @@ class DriverAdmin(admin.ModelAdmin):
 class CarAdmin(admin.ModelAdmin):
     lang = translation.get_language()
 
-    def image_tag(self, obj):
-        print(obj)
-        return mark_safe('<img src="{url}" width="150" height="150" />'.format(url=obj.image_ru.url))
-
-    image_tag.short_description = 'Image'
-
     list_display = 'id', 'driver', f'color_{lang}', f'name_{lang}', 'image_tag', 'car_number', \
         'createdBy', 'updatedBy', 'time_create'
     readonly_fields = ['id', 'createdBy', 'updatedBy', 'time_create', 'image_tag']
 
     # fields = 'id', 'driver', 'car_number', 'createdBy', 'updatedBy',
+    def image_tag(self, obj):
+        print(obj)
+        if obj.image_ru:
+            return mark_safe(f'<img src="{obj.image_ru.url}" title="{obj.image_ru.name}" width="150" height="150" />')
+
+    image_tag.short_description = 'Image'
 
     def save_model(self, request, obj, form, change):
         if not change:
