@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 from django.conf import settings
+from tinymce.models import HTMLField
 
 
 class Driver(models.Model):
@@ -11,6 +12,7 @@ class Driver(models.Model):
     createdBy = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="drivers_created_by")
     updatedBy = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="drivers_updated_by")
     birthdate = models.DateField()
+    bio = HTMLField(max_length=5000, null=True)
     time_create = models.DateTimeField(auto_now_add=True)
     phone = models.CharField(max_length=15)
     salary = models.IntegerField()
