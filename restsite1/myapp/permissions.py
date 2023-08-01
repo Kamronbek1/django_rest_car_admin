@@ -19,7 +19,7 @@ class HasGroupPermission(permissions.BasePermission):
         for i in request.user.groups.values_list('name', flat=True):
             if i in required_groups_mapping.get(request.method, []):
                 return True
-        return False
+        return request.user and request.user.is_superuser
 
     def has_object_permission(self, request, view, obj):
         """

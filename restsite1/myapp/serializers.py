@@ -54,8 +54,7 @@ class I18nModelSerializer(serializers.ModelSerializer):
                             continue
                 if not representation[k]:
                     representation[k] = None
-
-            return {key: value for key, value in representation.items() if key not in fields_lang}
+        return {key: value for key, value in representation.items() if key not in fields_lang}
 
 
 class CarSerializer(I18nModelSerializer):
@@ -77,12 +76,13 @@ class CarSerializer(I18nModelSerializer):
 
 
 class DriverSerializer(I18nModelSerializer):
-    cars = CarSerializer(many=True, required=False, read_only=True)
+    cars = CarSerializer(many=True,required=False, read_only=True)
 
     class Meta:
         model = Driver
-        i18n_fields = ('lastname', 'firstname',)
-        fields = 'id', 'birthdate', 'phone', 'salary', 'time_create', 'cars', 'createdBy', 'updatedBy',
+        i18n_fields = ("catch", ('lastname', 'firstname'))
+        # fields = 'id', 'birthdate', 'phone', 'salary', 'time_create', 'cars', 'createdBy', 'updatedBy',
+        fields = "__all__"
         extra_kwargs = {
             "createdBy": {
                 'read_only': True,
@@ -91,6 +91,6 @@ class DriverSerializer(I18nModelSerializer):
                 'read_only': True,
             },
             # "cars": {
-            #     'read_only': False,
+            #     'read_only': True,
             # },
         }

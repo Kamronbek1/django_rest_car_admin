@@ -58,6 +58,8 @@ class DriverAPIViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(createdBy=self.request.user)
 
+    def get_queryset(self):
+        return Driver.objects.all()
 # class MyCarCRUDAPIView(APIView):
 #     def post(self, request):
 #         from django.http import JsonResponse
