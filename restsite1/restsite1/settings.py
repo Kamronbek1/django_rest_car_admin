@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'myapp.apps.MyappConfig',
     'rest_framework',
     'tinymce',
+    # 'markitup',
 
 ]
 
@@ -138,4 +139,45 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
         'rest_framework.permissions.DjangoModelPermissions'
     )
+}
+
+TINYMCE_DEFAULT_CONFIG = {
+    'selector': 'textarea',
+    "theme": "silver",
+    "height": 500,
+    "width": 1000,
+    "menubar": True,
+    "plugins": "advlist,anchor,autolink,autoresize,lists,link,image,imagetools,charmap,print,preview,anchor,"
+               "searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,"
+               "code,help,wordcount,paste",
+    'paste_remove_styles': True,
+    'paste_data_images': True,
+    # 'paste_as_text': True,
+    # 'paste_merge_formats': True,
+    # 'valid_elements': 'a[href|target],strong/b,div[align],br,p,img[src|alt],p[style],h1,h2,h3,h4,h5,h6,'
+    #                   'table,tbody,thead,tr,td,ul,ol,li',
+
+    'valid_elements': 'a[href|target|style],link[href|rel|type|media|sizes|style],'
+                      'h1[style],h2[style],h3[style],h4[style],h5[style],h6[style],'
+                      'p[style],pre[style],div[style],em[style],i[style],b[style],span[style],strong[style],u[style],'
+                      'ol[start|style],li[value|style],ul[value|style],'
+                      'colspan[style],rowspan[style],'
+                      'br[style],hr[style],button[type|name|value|disabled|style],'
+                      'blockquote[cite|style],code[style],'
+                      'canvas[id|width|height|style],svg[width|height|style],'
+                      'option[value|disabled|selected|style],select[name|disabled|multiple|size|style],'
+                      'figure[style],iframe[src|width|height|style],img[src|alt|width|height|srcset|sizes|style],'
+                      'video[src|poster|autoplay|loop|controls|muted|width|height|style],'
+                      'source[src|type|srcset|sizes|media|style],'
+                      'audio[src|autoplay|loop|controls|style],track[src|kind|srclang|label|default|style]'
+                      'table[style],tbody[style],td[colspan|rowspan|style],template[style],'
+                      'tfoot[style],th[scope|colspan|rowspan|style],thead[style],',
+
+    # 'paste_remove_styles_if_webkit': True,
+    # 'paste_strip_class_attributes': 'all',
+    "toolbar": "undo redo | formatselect | bold italic backcolor | alignleft aligncenter "
+               "alignright alignjustify | bullist numlist outdent indent | removeformat | help",
+    "paste_retain_style_properties": "",
+    'images_upload_url': '/image_upload/',  # the URL where the images will be posted
+    'relative_urls': False
 }

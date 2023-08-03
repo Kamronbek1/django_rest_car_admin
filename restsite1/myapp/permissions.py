@@ -33,3 +33,9 @@ class HasURLPermission(permissions.BasePermission):
         import re
         re.match()
         return '/admin/' in request.path
+
+
+class IsSuperUser(permissions.IsAdminUser):
+    def has_permission(self, request, view):
+        print('IsSuperUser called!')
+        return bool(request.user and request.user.is_superuser)

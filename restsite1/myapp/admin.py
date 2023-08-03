@@ -1,8 +1,10 @@
 from django.contrib import admin
+from django.db import models
 from django.utils import translation
 from django.utils.safestring import mark_safe
 
 from .models import Car, Driver
+from .widgets import TinyMCEWidget
 
 #
 admin.site.site_header = 'My Custom Index Title'
@@ -28,6 +30,9 @@ class DriverAdmin(admin.ModelAdmin):
     list_display = "__str__", 'id', 'birthdate', 'phone', 'salary', 'createdBy', 'updatedBy', 'time_create',
     inlines = [CarInline]
     readonly_fields = ['id', 'createdBy', 'updatedBy', 'time_create']
+    formfield_overrides = {
+        models.TextField: {'widget': TinyMCEWidget()},
+    }
 
     def save_model(self, request, obj, form, change):
         if not change:

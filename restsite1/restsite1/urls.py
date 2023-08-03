@@ -21,14 +21,15 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import SimpleRouter
 
-from myapp.views import CarAPIViewSet, DriverAPIViewSet
+from myapp.views import CarAPIViewSet, DriverAPIViewSet, image_upload
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
     path('tinymce/', include('tinymce.urls')),
+    path('image_upload/', image_upload, name='image_upload'),  # the URL for image upload
 ]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 router = SimpleRouter()
 router.register(r'cars', CarAPIViewSet, basename='cars')
