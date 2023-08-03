@@ -9,13 +9,13 @@
 #         print(filename)
 #         with open(filename, "wb") as f:
 #             f.write(response.content)
-import os
 import re
 from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
 from django.conf import settings
+
 
 # output_dir = Path(settings.MEDIA_ROOT + '/images')
 #
@@ -27,7 +27,6 @@ def parse_and_download_images(html):
     soup = BeautifulSoup(html, 'html.parser')
     # Find all <img> tags
     img_tags = soup.find_all('img')
-
     # Iterate through each <img> tag
     for img in img_tags:
         # Get the source URL of the image
@@ -37,18 +36,15 @@ def parse_and_download_images(html):
             # Download the image and save it locally
             response = requests.get(src_url)
             file = src_url.split("/")[-1]
-            save_path = str(Path(settings.MEDIA_ROOT) / f"uploads/{file}")
+            save_path = str(Path(settings.MEDIA_ROOT) / Path('uploads') / file)
 
             with open(save_path, 'wb+') as destination:
                 destination.write(response.content)
-                
-            img['src'] = "/" + "/".join(save_path.split('/')[-3:])
-            print(settings.MEDIA_ROOT, 'uploads', file)
+            img['src'] = "/" + "/".join(Path(save_path).parts[-3:])
 
     modified_html = str(soup)
 
     # Return the modified HTML as a response
     return modified_html
-
 
 # print(parse_and_download_images())
