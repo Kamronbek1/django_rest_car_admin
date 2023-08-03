@@ -37,17 +37,14 @@ def parse_and_download_images(html):
             # Download the image and save it locally
             response = requests.get(src_url)
             file = src_url.split("/")[-1]
-            save_path = os.path.join(settings.MEDIA_ROOT, 'uploads', file)
-            print('file ',file)
+            save_path = str(Path(settings.MEDIA_ROOT) / f"uploads/{file}")
+
             with open(save_path, 'wb+') as destination:
                 destination.write(response.content)
-
-            # Replace the source URL with the local file path
-            img['src'] = os.path.join(settings.MEDIA_ROOT, 'uploads', file)
-            # img['src'] = "/".join((Path(save_path).parts[-3:])
+                
+            img['src'] = "/" + "/".join(save_path.split('/')[-3:])
             print(settings.MEDIA_ROOT, 'uploads', file)
 
-    # Convert the modified HTML back to a string
     modified_html = str(soup)
 
     # Return the modified HTML as a response
